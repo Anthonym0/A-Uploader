@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS users(ID integer PRIMARY KEY NOT NULL AUTO_INCREMENT, Username varchar(20), Password TEXT);
+

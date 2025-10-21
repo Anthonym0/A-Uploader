@@ -31,7 +31,7 @@
 
                 <div class="field is-flex is-justify-content-center is-flex-direction-column mt-5">
                     <button class="button is-success px-6">Login</button>
-                    <a class="pt-2" href="#">Don’t have an account?</a>
+                    <a class="pt-2" href="register.php">Don’t have an account?</a>
                 </div>
             </form>
         </div>
