@@ -18,15 +18,15 @@
             }
         }
 
-        protected function user_match($username) {
+        protected function getUserByName($username) {
             $query = 'SELECT * FROM users';
             $result = $this->pdo->query($query);
             
             foreach ($result as $row) {
                 if ($row['Username'] == $username)
-                    return true;
+                    return $row;
             }
-            return false;
+            return NULL;
         }
 
         function create_user($username, $pass, $confirm_pass) {
@@ -34,7 +34,7 @@
                 return 'ERROR: The fields should not be empty.';
             if ($pass != $confirm_pass)
                 return 'ERROR: Passwords do not match';
-            if ($this->user_match($username) == true)
+            if ($this->getUserByName($username) != NULL)
                 return 'ERROR: The username is already taken.';
 
             $data = [
@@ -43,6 +43,16 @@
             ];
             $query = 'INSERT INTO users(Username, Password) VALUES(:Username, :Password)';
             $this->pdo->prepare($query)->execute($data);
+            return '';
+        }
+
+
+        function login($username, $pass) {
+            if (empty($username) || empty($pass))
+                return 'ERROR: The fields should not be empty.';
+            $user = $this->getUserByName($username);
+            if ($user == NULL || !password_verify($pass, $user['Password']))
+                return 'ERROR: Invalid username or password.';
             return '';
         }
     };

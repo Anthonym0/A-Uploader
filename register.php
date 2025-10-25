@@ -1,10 +1,17 @@
 <?php
     require_once("database.php");
     const db = new db;
-    
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['confirmpassword'])) {
+    $error = '';
+    session_start();
+
+    if (isset($_SESSION['username'])) {
+        header('Location: dashboard.php');
+        exit;
+    } else if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['confirmpassword'])) {
         db->init();
         $error = db->create_user($_POST['username'], $_POST['password'], $_POST['confirmpassword']);
+        if ($error == '')
+           header('Location: login.php');
     }
 ?>
 
