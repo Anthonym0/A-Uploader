@@ -55,5 +55,32 @@
                 return 'ERROR: Invalid username or password.';
             return '';
         }
+
+
+
+        function SaveFileToDB($username, $url) {
+            $data = [
+                'user' => $username,
+                'url' => $url,
+            ];
+            $query = 'INSERT INTO uploads(user, url) VALUES(:user, :url)';
+            $this->pdo->prepare($query)->execute($data);
+        }
+
+
+        function getUploads($username) {
+            $query = 'SELECT * FROM uploads';
+            $result = $this->pdo->query($query);
+            
+            $tbl_uploads = [];
+            foreach ($result as $row) {
+                if ($row['user'] == $username)
+                    $tbl_uploads[] = $row;
+            }
+            
+            return $tbl_uploads;
+        }
+
+
     };
 ?>
