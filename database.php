@@ -5,7 +5,7 @@
         private PDO $pdo;
 
         function __construct() {
-            require_once("connect.php");
+            require_once("config.php");
             
             try {
                 $this->pdo = new PDO("mysql:host=${DB_HOST};dbname=${DB_NAME}", $DB_USER, $DB_PASS);
