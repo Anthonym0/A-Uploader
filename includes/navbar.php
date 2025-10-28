@@ -1,5 +1,6 @@
 <?php 
-    session_start();
+    require_once('utils.php');
+    check_session_start();
 ?>
 
 <nav class="navbar">

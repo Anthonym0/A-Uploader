@@ -2,21 +2,19 @@
 
 
     class db {
-        protected $pdo;
-        protected $dsn;
+        private PDO $pdo;
 
-        function init() {
+        function __construct() {
             require_once("connect.php");
-
-            $this->$dsn = "mysql:host=${DB_HOST};dbname=${DB_NAME}";
             
             try {
-                $this->pdo = new PDO($this->$dsn, $DB_USER, $DB_PASS);
+                $this->pdo = new PDO("mysql:host=${DB_HOST};dbname=${DB_NAME}", $DB_USER, $DB_PASS);
             } catch (PDOExeption $e){
                 echo $e->getMessage();
                 exit;
             }
         }
+
 
         protected function getUserByName($username) {
             $query = 'SELECT * FROM users';

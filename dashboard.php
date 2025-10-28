@@ -1,13 +1,14 @@
 <?php
     require_once('database.php');
-    session_start();
+    require_once('utils.php');
+    check_session_start();
+
     if (!isset($_SESSION['username'])) {
         header("Location: login.php");
         exit;
     }
     $error = '';
     const db = new db;
-    db->init();
 
     if (isset($_POST['submit'])) {
         if ($_FILES['uploadinput']['error'] > 0) 

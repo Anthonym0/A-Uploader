@@ -1,13 +1,14 @@
 <?php
     require_once("database.php");
+    require_once('utils.php');
+    check_session_start();
+
     const db = new db;
     $error = '';
-    session_start();
     if (isset($_SESSION['username'])) {
         header('Location: dashboard.php');
         exit;
     } else if (isset($_POST['username']) && isset($_POST['password'])) {
-        db->init();
         $error = db->login($_POST['username'], $_POST['password']);
         if ($error == '') {
             $_SESSION['username'] = $_POST['username'];
